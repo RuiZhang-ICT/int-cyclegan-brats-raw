@@ -31,9 +31,12 @@ if __name__ == '__main__':
             model.set_input(data)
             model.optimize_parameters()
 
-            if total_steps % opt.display_freq == 0:
-                save_result = total_steps % opt.update_html_freq == 0
-                visualizer.display_current_results(model.get_current_visuals(), epoch, save_result)
+            if epoch_iter % opt.display_freq == 0:
+            #if total_steps % opt.display_freq == 0:
+                save_result = epoch_iter % opt.update_html_freq == 0
+                #visualizer.display_current_results(model.get_current_visuals(), epoch, save_result)
+                max_iter = dataset_size / opt.update_html_freq * opt.update_html_freq # rui
+                visualizer.display_current_results(model.get_current_visuals(), epoch, epoch_iter, max_iter, save_result) # rui
 
             if total_steps % opt.print_freq == 0:
                 losses = model.get_current_losses()

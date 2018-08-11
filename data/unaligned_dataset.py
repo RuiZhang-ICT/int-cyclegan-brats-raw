@@ -13,8 +13,12 @@ class UnalignedDataset(BaseDataset):
     def initialize(self, opt):
         self.opt = opt
         self.root = opt.dataroot
-        self.dir_A = os.path.join(opt.dataroot, opt.phase + 'A')
-        self.dir_B = os.path.join(opt.dataroot, opt.phase + 'B')
+        # rui edit start
+        self.dir_A = os.path.join(opt.dataroot, opt.dataA)
+        self.dir_B = os.path.join(opt.dataroot, opt.dataB)
+        #self.dir_A = os.path.join(opt.dataroot, opt.phase + 'A')
+        #self.dir_B = os.path.join(opt.dataroot, opt.phase + 'B')
+        # rui edit end
 
         self.A_paths = make_dataset(self.dir_A)
         self.B_paths = make_dataset(self.dir_B)
@@ -23,6 +27,8 @@ class UnalignedDataset(BaseDataset):
         self.B_paths = sorted(self.B_paths)
         self.A_size = len(self.A_paths)
         self.B_size = len(self.B_paths)
+        print 'dataA size: ' + str(self.A_size) # rui
+        print 'dataB size: ' + str(self.B_size) # rui
         self.transform = get_transform(opt)
 
     def __getitem__(self, index):
